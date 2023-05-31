@@ -1,8 +1,7 @@
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from config import TOKEN
-from config import OPENAI_TOKEN
+from config import TOKEN, OPENAI_TOKEN
 import openai
 
 openai.api_key = OPENAI_TOKEN
