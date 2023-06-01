@@ -1,7 +1,9 @@
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from config import TOKEN, OPENAI_TOKEN
+from .config import TOKEN, OPENAI_TOKEN
+from django.core.management.base import BaseCommand
+from django.conf import settings
 import openai
 
 openai.api_key = OPENAI_TOKEN
@@ -12,10 +14,17 @@ dp = Dispatcher(bot)
 dialog = []
 
 
+class Command(BaseCommand):
+    help = 'Telegram bot setup command'
+
+    def handle(self, *args, **options):
+        executor.start_polling(dp)
+
+
 @dp.message_handler()
 async def handler_message(message: types.Message):
     global dialog
-    print(message.text)
+    print('Пользователь: '+message.text + '\n')
     user_input = message.text
 
     dialog.append({'role': 'user', 'content': user_input})
@@ -31,7 +40,7 @@ async def handler_message(message: types.Message):
 
     dialog.append({'role': 'assistant', 'content': answer})
 
-    print(answer+'\n')
+    print('Ответ: '+answer + '\n')
 
     await message.reply(answer)
 

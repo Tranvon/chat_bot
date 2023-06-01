@@ -1,12 +1,10 @@
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, InlineKeyboardMarkup, \
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, \
     InlineKeyboardButton
 from random import randint
-from config import TOKEN
-from config import OPENAI_TOKEN
-import openai
+from BotGPT.management.commands.config import TOKEN
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
