@@ -6,7 +6,7 @@ class Dialog(models.Model):
     role = models.CharField(max_length=255)
     context = models.TextField()
 
-    def str(self):
+    def __str__(self):
         return self.username
 
 
@@ -15,6 +15,6 @@ class Message(models.Model):
     role = models.CharField(max_length=255)
     content = models.TextField()
 
-    def str(self):
+    def __str__(self):
         return self.content
 # Create your models here.
