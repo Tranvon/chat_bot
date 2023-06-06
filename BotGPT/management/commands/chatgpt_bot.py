@@ -6,7 +6,7 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from django.contrib.sessions.backends.base import UpdateError
 
-from .config import TOKEN, OPENAI_TOKEN
+from bot_web_db.settings import TOKEN, OPENAI_TOKEN
 
 from asgiref.sync import sync_to_async
 from django.core.management.base import BaseCommand
