@@ -6,7 +6,7 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from django.contrib.sessions.backends.base import UpdateError
 
-from bot_web_db.settings import TOKEN, OPENAI_TOKEN
+from .config import TOKEN, OPENAI_TOKEN
 
 from asgiref.sync import sync_to_async
 from django.core.management.base import BaseCommand
@@ -20,7 +20,7 @@ openai.api_key = OPENAI_TOKEN
 
 # Настройка логгера
 logging.basicConfig(level=logging.ERROR)
-print('Start Bot: ')
+print('Start Bot!')
 
 
 class Command(BaseCommand):
@@ -119,7 +119,7 @@ async def delete_dialog(message: types.Message):
 
     # Удаляем каждый диалог с помощью синхронного вызова delete()
     for dialog in dialogs:
-        dialog.delete()
+        await sync_to_async(dialog.delete)()
 
     # Получаем сообщения, связанные с удаленными диалогами
     messages = await sync_to_async(Message.objects.filter)(dialog__username=dialog_str)
@@ -129,7 +129,7 @@ async def delete_dialog(message: types.Message):
 
     # Удаляем каждое сообщение с помощью синхронного вызова delete()
     for message in messages:
-        message.delete()
+        await sync_to_async(message.delete)()
 
     await message.reply("Диалог с ассистентом удален.")
 
